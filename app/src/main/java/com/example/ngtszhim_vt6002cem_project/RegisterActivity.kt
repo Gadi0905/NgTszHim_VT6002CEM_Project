@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +71,10 @@ class RegisterActivity : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
 
+                                // call the saveUserData function
+                                // and save the user data at the same time
+                                saveUserData(firebaseUser.uid, email)
+
                                 // put user id and email to intent,
                                 // and jump to MainActivity screen
                                 startActivity(Intent(this, MainActivity::class.java))
@@ -87,5 +92,19 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    // save user data function
+    private fun saveUserData(uid: String, email: String) {
+        val db = FirebaseFirestore.getInstance()
+        val user: MutableMap<String, Any> = HashMap()
+
+        // put the uid into firebase user's user_id field
+        user["user_id"] = uid
+        // put the email into firebase user's email field
+        user["email"] = email
+
+        // collect to firebase's users table and add user
+        db.collection("users")
+            .add(user)
     }
 }
