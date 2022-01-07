@@ -72,12 +72,7 @@ class RegisterActivity : AppCompatActivity() {
 
                                 // put user id and email to intent,
                                 // and jump to MainActivity screen
-                                val intent = Intent(this, MainActivity::class.java)
-                                intent.flags =
-                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                intent.putExtra("userId", firebaseUser.uid)
-                                intent.putExtra("email", email)
-                                startActivity(intent)
+                                startActivity(Intent(this, MainActivity::class.java))
                                 finish()
                             } else {
                                 // if the account is not successfully created,
