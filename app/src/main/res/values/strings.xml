@@ -1,3 +1,24 @@
 <resources>
+<!--    app name-->
     <string name="app_name">NgTszHim_VT6002CEM_Project</string>
+
+<!--    title-->
+    <string name="login_screen">LOGIN SCREEN</string>
+    <string name="sign_up_screen">SIGN UP SCREEN</string>
+    <string name="user_id">User ID</string>
+
+<!--    hin text-->
+    <string name="email">EMAIL</string>
+    <string name="password">PASSWORD</string>
+
+<!--    button text-->
+    <string name="login">LOGIN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="logout">LOGOUT</string>
+    <string name="main">MAIN</string>
+    <string name="my_profile">MY PROFILE</string>
+
+<!--    questions text-->
+    <string name="do_not_have_any_account">Do not have any account?</string>
+    <string name="already_have_account">Already have account?</string>
 </resources>
