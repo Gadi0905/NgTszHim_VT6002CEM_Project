@@ -13,7 +13,7 @@ class MyProfileActivity : AppCompatActivity() {
         // variable definition
         val btnMyProfileMain = findViewById<Button>(R.id.btnMyProfileMain)
 
-        // when btnMainMyProfile is pressed, jump to MyProfileActivity screen
+        // when btnMyProfileMain is pressed, jump to MyProfileActivity screen
         btnMyProfileMain.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
