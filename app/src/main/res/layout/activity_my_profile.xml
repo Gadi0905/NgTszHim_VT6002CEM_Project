@@ -11,20 +11,24 @@
         android:id="@+id/tvUserId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="167dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="167dp"
         android:text="@string/user_id"
         android:textAlignment="center"
         android:textColor="#B39DDB"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnGallery" />
 
     <TextView
         android:id="@+id/tvUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="171dp"
         android:text="@string/email"
         android:textAlignment="center"
         android:textColor="#B39DDB"
@@ -47,9 +51,43 @@
         android:id="@+id/btnLogout"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="55dp"
         android:text="@string/logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvUserEmail" />
+
+    <ImageView
+        android:id="@+id/imUserIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:contentDescription="@string/im_user_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/btn_camera"
+        app:layout_constraintEnd_toStartOf="@+id/btnGallery"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imUserIcon" />
+
+    <Button
+        android:id="@+id/btnGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/btn_gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCamera"
+        app:layout_constraintTop_toBottomOf="@+id/imUserIcon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

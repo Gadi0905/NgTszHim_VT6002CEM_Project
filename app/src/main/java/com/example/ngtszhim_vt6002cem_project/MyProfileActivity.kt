@@ -1,21 +1,37 @@
 package com.example.ngtszhim_vt6002cem_project
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.provider.Settings
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 
 class MyProfileActivity : AppCompatActivity() {
+    private val cameraRequestCode = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
 
         // variable definition
+        val imUserIcon = findViewById<ImageView>(R.id.imUserIcon)
         val tvUserId = findViewById<TextView>(R.id.tvUserId)
         val tvUserEmail = findViewById<TextView>(R.id.tvUserEmail)
+        val btnCamera = findViewById<Button>(R.id.btnCamera)
+        val btnGallery = findViewById<Button>(R.id.btnGallery)
         val btnMyProfileMain = findViewById<Button>(R.id.btnMyProfileMain)
         val btnLogout = findViewById<Button>(R.id.btnLogout)
 
@@ -34,6 +50,59 @@ class MyProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
+
+        // when btnCamera is pressed
+        btnCamera.setOnClickListener {
+            checkCameraPermission()
+        }
+    }
+
+    private fun checkCameraPermission() {
+        Dexter.withContext(this)
+            .withPermissions(
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                android.Manifest.permission.CAMERA
+            ).withListener(
+                object : MultiplePermissionsListener {
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                        report?.let {
+                            if (report.areAllPermissionsGranted()){
+                                camera()
+                            }
+                        }
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(
+                        p0: MutableList<PermissionRequest>?,
+                        p1: PermissionToken?
+                    ) {
+                        showRotationalDialogForPermission()
+                    }
+
+                }
+            ).onSameThread().check()
+    }
+
+    private fun camera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intent, cameraRequestCode)
+    }
+
+    private fun showRotationalDialogForPermission() {
+        AlertDialog.Builder(this).setMessage("Please go to settings to open camera permissions")
+            .setPositiveButton("Settings"){_,_ ->
+                try {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    val uri = Uri.fromParts("package", packageName, null)
+                    intent.data = uri
+                    startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    e.printStackTrace()
+                }
+            }
+            .setNegativeButton("Cancel"){dialog, _->
+                dialog.dismiss()
+            }.show()
     }
 
     private fun readUserData(tvUserId: TextView, tvUserEmail: TextView): Pair<String, String> {
