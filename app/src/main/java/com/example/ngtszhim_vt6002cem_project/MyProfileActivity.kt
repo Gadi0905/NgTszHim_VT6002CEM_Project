@@ -91,7 +91,9 @@ class MyProfileActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        // variable definition
         val ivUserIcon = findViewById<ImageView>(R.id.ivUserIcon)
+
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == cameraRequestCode) {
                 val thumbNail: Bitmap = data!!.extras!!.get("data") as Bitmap
