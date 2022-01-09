@@ -1,27 +1,37 @@
 package com.example.ngtszhim_vt6002cem_project
 
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.jar.Manifest
 
 class MyProfileActivity : AppCompatActivity() {
-    private val cameraRequestCode = 1
+
+    companion object {
+        private const val cameraPermissionCode = 1
+        private const val cameraRequestCode = 2
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
 
         // variable definition
-        val imUserIcon = findViewById<ImageView>(R.id.imUserIcon)
         val tvUserId = findViewById<TextView>(R.id.tvUserId)
         val tvUserEmail = findViewById<TextView>(R.id.tvUserEmail)
         val btnCamera = findViewById<Button>(R.id.btnCamera)
-        val btnGallery = findViewById<Button>(R.id.btnGallery)
         val btnMyProfileMain = findViewById<Button>(R.id.btnMyProfileMain)
         val btnLogout = findViewById<Button>(R.id.btnLogout)
 
@@ -40,6 +50,54 @@ class MyProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
+
+        btnCamera.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                startActivityForResult(intent, cameraRequestCode)
+            } else {
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(android.Manifest.permission.CAMERA),
+                    cameraPermissionCode
+                )
+            }
+        }
+    }
+
+    // get the permissions of the camera
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == cameraPermissionCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                startActivityForResult(intent, cameraRequestCode)
+            } else {
+                Toast.makeText(
+                    this,
+                    "Please allow the permission for camera in the settings",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val ivUserIcon = findViewById<ImageView>(R.id.ivUserIcon)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == cameraRequestCode) {
+                val thumbNail: Bitmap = data!!.extras!!.get("data") as Bitmap
+                ivUserIcon.setImageBitmap(thumbNail)
+            }
+        }
     }
 
     private fun readUserData(tvUserId: TextView, tvUserEmail: TextView): Pair<String, String> {
@@ -53,7 +111,6 @@ class MyProfileActivity : AppCompatActivity() {
                         userId = document.data.getValue("user_id").toString()
                         email = document.data.getValue("email").toString()
                     }
-                } else {
                 }
                 tvUserId.text = "User ID: $userId"
                 tvUserEmail.text = "Email: $email"

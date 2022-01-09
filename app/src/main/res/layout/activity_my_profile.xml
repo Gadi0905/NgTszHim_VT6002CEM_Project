@@ -20,14 +20,14 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGallery" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCamera" />
 
     <TextView
         android:id="@+id/tvUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="170dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="171dp"
         android:text="@string/email"
         android:textAlignment="center"
@@ -52,7 +52,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="55dp"
         android:text="@string/logout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,34 +60,26 @@
         app:layout_constraintTop_toBottomOf="@+id/tvUserEmail" />
 
     <ImageView
-        android:id="@+id/imUserIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/ivUserIcon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginTop="80dp"
         android:contentDescription="@string/im_user_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/default_icon"
         tools:ignore="ImageContrastCheck"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/ic_launcher_foreground" />
 
     <Button
         android:id="@+id/btnCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:text="@string/btn_camera"
-        app:layout_constraintEnd_toStartOf="@+id/btnGallery"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imUserIcon" />
-
-    <Button
-        android:id="@+id/btnGallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/btn_gallery"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnCamera"
-        app:layout_constraintTop_toBottomOf="@+id/imUserIcon" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivUserIcon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
