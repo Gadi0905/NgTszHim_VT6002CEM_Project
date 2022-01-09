@@ -50,59 +50,6 @@ class MyProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
-
-        // when btnCamera is pressed
-        btnCamera.setOnClickListener {
-            checkCameraPermission()
-        }
-    }
-
-    private fun checkCameraPermission() {
-        Dexter.withContext(this)
-            .withPermissions(
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                android.Manifest.permission.CAMERA
-            ).withListener(
-                object : MultiplePermissionsListener {
-                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                        report?.let {
-                            if (report.areAllPermissionsGranted()){
-                                camera()
-                            }
-                        }
-                    }
-
-                    override fun onPermissionRationaleShouldBeShown(
-                        p0: MutableList<PermissionRequest>?,
-                        p1: PermissionToken?
-                    ) {
-                        showRotationalDialogForPermission()
-                    }
-
-                }
-            ).onSameThread().check()
-    }
-
-    private fun camera() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, cameraRequestCode)
-    }
-
-    private fun showRotationalDialogForPermission() {
-        AlertDialog.Builder(this).setMessage("Please go to settings to open camera permissions")
-            .setPositiveButton("Settings"){_,_ ->
-                try {
-                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                    val uri = Uri.fromParts("package", packageName, null)
-                    intent.data = uri
-                    startActivity(intent)
-                } catch (e: ActivityNotFoundException) {
-                    e.printStackTrace()
-                }
-            }
-            .setNegativeButton("Cancel"){dialog, _->
-                dialog.dismiss()
-            }.show()
     }
 
     private fun readUserData(tvUserId: TextView, tvUserEmail: TextView): Pair<String, String> {
