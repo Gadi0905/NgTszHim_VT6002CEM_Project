@@ -13,10 +13,16 @@ class MainActivity : AppCompatActivity() {
 
         // variable definition
         val btnMainMyProfile = findViewById<Button>(R.id.btnMainMyProfile)
+        val btnMap = findViewById<Button>(R.id.btnMap)
 
         // when btnMainMyProfile is pressed, jump to MyProfileActivity screen
         btnMainMyProfile.setOnClickListener {
             startActivity(Intent(this, MyProfileActivity::class.java))
+        }
+
+        // when btnMap is pressed, jump to MapsActivity screen
+        btnMap.setOnClickListener {
+            startActivity(Intent(this, MapsActivity::class.java))
         }
     }
 }
