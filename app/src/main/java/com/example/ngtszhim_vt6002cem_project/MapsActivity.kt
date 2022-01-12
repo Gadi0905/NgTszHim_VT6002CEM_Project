@@ -1,5 +1,6 @@
 package com.example.ngtszhim_vt6002cem_project
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -38,12 +39,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        var lat = 0.0
+        var long = 0.0
+        lat = intent.getDoubleExtra("lat")
+        long = intent.getDoubleExtra("long")
 
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
-        val hongkong = LatLng(22.302711, 114.177216)
+        val hongKong = LatLng(22.302711, 114.177216)
+        val myLocation = LatLng(lat, long)
         mMap.addMarker(MarkerOptions().position(sydney).title("Maker in Sydney"))
-        mMap.addMarker(MarkerOptions().position(hongkong).title("Maker in Hong Kong"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(hongkong))
+        mMap.addMarker(MarkerOptions().position(hongKong).title("Maker in Hong Kong"))
+        mMap.addMarker(MarkerOptions().position(myLocation).title("You are here"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
     }
+}
+
+private fun Intent.getDoubleExtra(s: String): Double {
+    TODO("Not yet implemented")
 }
