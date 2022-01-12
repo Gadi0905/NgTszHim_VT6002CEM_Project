@@ -1,8 +1,11 @@
 package com.example.ngtszhim_vt6002cem_project
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -10,14 +13,19 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.ngtszhim_vt6002cem_project.databinding.ActivityMapsBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -39,22 +47,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        var lat = 0.0
-        var long = 0.0
-        lat = intent.getDoubleExtra("lat")
-        long = intent.getDoubleExtra("long")
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        val hongKong = LatLng(22.302711, 114.177216)
-        val myLocation = LatLng(lat, long)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Maker in Sydney"))
-        mMap.addMarker(MarkerOptions().position(hongKong).title("Maker in Hong Kong"))
-        mMap.addMarker(MarkerOptions().position(myLocation).title("You are here"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation))
+        val task = fusedLocationProviderClient.lastLocation
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 101)
+        }
+
+        task.addOnSuccessListener {
+            if (it != null) {
+                Toast.makeText(
+                    this,
+                    "Your Location:${it.latitude}, ${it.longitude}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val yourLocation = LatLng(it.latitude, it.longitude)
+                mMap.addMarker(MarkerOptions().position(yourLocation).title("You location"))
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(yourLocation, 16f))
+            }
+        }
     }
-}
-
-private fun Intent.getDoubleExtra(s: String): Double {
-    TODO("Not yet implemented")
 }
