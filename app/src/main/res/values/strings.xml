@@ -6,6 +6,7 @@
     <string name="login_screen">LOGIN SCREEN</string>
     <string name="sign_up_screen">SIGN UP SCREEN</string>
     <string name="user_id">User ID</string>
+    <string name="function_list">FUNCTION LIST</string>
 
 <!--    hin text-->
     <string name="email">EMAIL</string>
@@ -17,13 +18,14 @@
     <string name="logout">LOGOUT</string>
     <string name="main">MAIN</string>
     <string name="my_profile">MY PROFILE</string>
+    <string name="google_map">GOOGLE MAP</string>
+    <string name="camera">CHANGE YOUR ICON</string>
 
 <!--    questions text-->
     <string name="do_not_have_any_account">Do not have any account?</string>
     <string name="already_have_account">Already have account?</string>
-    <string name="btn_camera">CHANGE YOUR ICON</string>
-    <string name="btn_gallery">GALLERY</string>
 
 <!--    user icon image view-->
     <string name="im_user_icon">userIcon</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
