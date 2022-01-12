@@ -89,6 +89,7 @@ class MyProfileActivity : AppCompatActivity() {
         }
     }
 
+    // set the photo to user icon
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         // variable definition
@@ -102,6 +103,7 @@ class MyProfileActivity : AppCompatActivity() {
         }
     }
 
+    // read the user data from firebase
     private fun readUserData(tvUserId: TextView, tvUserEmail: TextView): Pair<String, String> {
         var userId = ""
         var email = ""

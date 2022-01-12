@@ -71,6 +71,14 @@ class LoginActivity : AppCompatActivity() {
                                 // and jump to MainActivity screen
                                 startActivity(Intent(this, MainActivity::class.java))
                                 finish()
+                            } else {
+                                // if the login is not successfully,
+                                // the system will remind user the login is not successfully
+                                Toast.makeText(
+                                    this,
+                                    it.exception!!.message.toString(),
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
                 }
