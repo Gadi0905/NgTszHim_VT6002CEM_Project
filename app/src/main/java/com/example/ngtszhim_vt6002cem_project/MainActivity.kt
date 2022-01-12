@@ -1,17 +1,21 @@
 package com.example.ngtszhim_vt6002cem_project
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         // variable definition
         val btnMainMyProfile = findViewById<Button>(R.id.btnMainMyProfile)
