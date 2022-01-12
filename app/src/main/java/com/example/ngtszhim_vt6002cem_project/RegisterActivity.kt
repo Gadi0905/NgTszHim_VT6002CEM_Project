@@ -67,7 +67,7 @@ class RegisterActivity : AppCompatActivity() {
                                 // remind user the account is successfully created
                                 Toast.makeText(
                                     this,
-                                    "Account successfully created",
+                                    "Account created successfully",
                                     Toast.LENGTH_SHORT
                                 ).show()
 

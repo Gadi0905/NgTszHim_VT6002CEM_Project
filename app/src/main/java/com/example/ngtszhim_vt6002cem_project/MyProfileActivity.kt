@@ -82,7 +82,7 @@ class MyProfileActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this,
-                    "Please allow the permission for camera in the settings",
+                    "Please allow camera permission in settings",
                     Toast.LENGTH_SHORT
                 ).show()
             }

@@ -75,13 +75,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 // use a toast msg to tell user current location
                 Toast.makeText(
                     this,
-                    "Your Location:${it.latitude}, ${it.longitude}",
+                    "Your location is:${it.latitude}, ${it.longitude}",
                     Toast.LENGTH_SHORT
                 ).show()
                 // put latitude and longitude to your location
                 val yourLocation = LatLng(it.latitude, it.longitude)
                 // add a marker msg "You location" to var yourLocation
-                mMap.addMarker(MarkerOptions().position(yourLocation).title("You location"))
+                mMap.addMarker(MarkerOptions().position(yourLocation).title("Your location"))
                 // zoom the camera to current location
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(yourLocation, 16f))
             }

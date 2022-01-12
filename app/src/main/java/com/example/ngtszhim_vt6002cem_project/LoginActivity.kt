@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
                                 // the system will remind user the login is successfully
                                 Toast.makeText(
                                     this,
-                                    "Login is successfully",
+                                    "Login successful",
                                     Toast.LENGTH_SHORT
                                 ).show()
 
