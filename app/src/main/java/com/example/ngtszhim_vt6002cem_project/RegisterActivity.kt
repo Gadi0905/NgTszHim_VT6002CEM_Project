@@ -93,6 +93,7 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
+
     // save user data function
     private fun saveUserData(uid: String, email: String) {
         val db = FirebaseFirestore.getInstance()

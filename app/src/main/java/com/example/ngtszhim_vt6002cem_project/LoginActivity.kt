@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                     // login the app by email and password
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, pwd)
                         .addOnCompleteListener {
-                            if(it.isSuccessful) {
+                            if (it.isSuccessful) {
                                 // if the login is successfully,
                                 // the system will remind user the login is successfully
                                 Toast.makeText(
